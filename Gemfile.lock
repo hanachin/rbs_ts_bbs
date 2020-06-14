@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/pocke/rbs_rails.git
+  revision: c4929eca1c8bf8d3472954fe28cafc87ea5bf582
+  specs:
+    rbs_rails (0.1.0)
+      parser
+
+GIT
   remote: https://github.com/rails/rails.git
   revision: 3bd14f4653a33469e39a4508f3330fed436e4625
   branch: master
@@ -178,8 +185,6 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rbs (0.3.1)
-    rbs_rails (0.1.0)
-      parser
     regexp_parser (1.7.1)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
@@ -245,7 +250,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
   rails!
-  rbs_rails
+  rbs_rails!
   sass-rails (>= 6)
   selenium-webdriver
   spring
