@@ -1,0 +1,6 @@
+module ActionArgs
+end
+
+extension AbstractController::Base (ActionArgs)
+  def self.permits: (*Symbol attributes, ?model_name: string, **untyped kw_attributes) -> void
+end
