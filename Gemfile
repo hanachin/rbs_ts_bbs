@@ -56,3 +56,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'steep', group: [:development, :test]
 gem 'rbs_rails', group: [:development, :test], github: 'pocke/rbs_rails'
+gem 'action_args'
