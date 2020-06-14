@@ -5,6 +5,7 @@
     "@babel/preset-react": "^7.10.1",
     "@babel/preset-typescript": "^7.10.1",
     "@rails/actioncable": "^6.0.0",
+    "@rails/actiontext": "https://gitpkg.now.sh/rails/rails/actiontext?master",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.1.1",
@@ -14,6 +15,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "trix": "^1.2.0",
     "turbolinks": "^5.2.0",
     "typescript": "^3.9.5"
   },
