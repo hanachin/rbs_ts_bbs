@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  app: &rails
+    build: .
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:hi@db:5432
+      BUNDLE_PATH: /bundle
+      NODE_PATH: /node_modules
+      RAILS_ENV: development
+      WEBPACKER_DEV_SERVER_HOST: webpacker
+    ports:
+      - "3000:3000"
+    volumes:
+      - home:/home/app
+      - .:/app
+      - bundle:/bundle
+      - node_modules:/node_modules
+  webpacker:
+    <<: *rails
+    command: webpack-dev-server
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+    ports:
+      - "3035:3035"
+  db:
+    image: postgres:12.3-alpine
+    environment:
+      POSTGRES_PASSWORD: hi
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  bundle:
+  home:
+  node_modules:
+  pgdata:
