@@ -1,0 +1,3 @@
+class Board < ApplicationRecord
+  extend _ActiveRecord_Relation[Board]
+end

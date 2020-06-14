@@ -1,0 +1,2 @@
+class BoardsConroller < ApplicationController
+end
