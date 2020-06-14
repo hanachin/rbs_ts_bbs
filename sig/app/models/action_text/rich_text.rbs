@@ -1,0 +1,28 @@
+extension ActionText::RichText (RbsRails)
+  extend _ActiveRecord_Relation_ClassMethods[ActionText::RichText, ActionText::RichText::ActiveRecord_Relation]
+
+  attr_accessor id (): Integer
+  attr_accessor name (): String
+  attr_accessor body (): String
+  attr_accessor record_type (): String
+  attr_accessor record_id (): Integer
+  attr_accessor created_at (): Time
+  attr_accessor updated_at (): Time
+  def embeds_attachments: () -> ActiveStorage::Attachment::ActiveRecord_Associations_CollectionProxy
+  def embeds_blobs: () -> ActiveStorage::Blob::ActiveRecord_Associations_CollectionProxy
+
+  def record: () -> untyped
+
+
+
+end
+
+class ActionText::RichText::ActiveRecord_Relation < ActiveRecord::Relation
+  include _ActiveRecord_Relation[ActionText::RichText]
+  include Enumerable[ActionText::RichText, self]
+
+
+end
+
+class ActionText::RichText::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+end

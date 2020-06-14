@@ -1,0 +1,24 @@
+extension ActiveStorage::VariantRecord (RbsRails)
+  extend _ActiveRecord_Relation_ClassMethods[ActiveStorage::VariantRecord, ActiveStorage::VariantRecord::ActiveRecord_Relation]
+
+  attr_accessor id (): Integer
+  attr_accessor blob_id (): Integer
+  attr_accessor variation_digest (): String
+
+  def image_attachment: () -> ActiveStorage::Attachment
+  def image_blob: () -> ActiveStorage::Blob
+  def blob: () -> ActiveStorage::Blob
+
+
+
+end
+
+class ActiveStorage::VariantRecord::ActiveRecord_Relation < ActiveRecord::Relation
+  include _ActiveRecord_Relation[ActiveStorage::VariantRecord]
+  include Enumerable[ActiveStorage::VariantRecord, self]
+
+
+end
+
+class ActiveStorage::VariantRecord::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+end

@@ -1,3 +1,24 @@
-class Board < ApplicationRecord
-  extend _ActiveRecord_Relation[Board]
+extension Board (RbsRails)
+  extend _ActiveRecord_Relation_ClassMethods[Board, Board::ActiveRecord_Relation]
+
+  attr_accessor id (): Integer
+  attr_accessor title (): String
+  attr_accessor created_at (): Time
+  attr_accessor updated_at (): Time
+
+
+
+
+
+
+end
+
+class Board::ActiveRecord_Relation < ActiveRecord::Relation
+  include _ActiveRecord_Relation[Board]
+  include Enumerable[Board, self]
+
+
+end
+
+class Board::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
 end

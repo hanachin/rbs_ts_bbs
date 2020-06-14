@@ -1,0 +1,31 @@
+extension ActiveStorage::Blob (RbsRails)
+  extend _ActiveRecord_Relation_ClassMethods[ActiveStorage::Blob, ActiveStorage::Blob::ActiveRecord_Relation]
+
+  attr_accessor id (): Integer
+  attr_accessor key (): String
+  attr_accessor filename (): String
+  attr_accessor content_type (): String
+  attr_accessor metadata (): String
+  attr_accessor service_name (): String
+  attr_accessor byte_size (): Integer
+  attr_accessor checksum (): String
+  attr_accessor created_at (): Time
+  def variant_records: () -> ActiveStorage::VariantRecord::ActiveRecord_Associations_CollectionProxy
+  def attachments: () -> ActiveStorage::Attachment::ActiveRecord_Associations_CollectionProxy
+  def preview_image_attachment: () -> ActiveStorage::Attachment
+  def preview_image_blob: () -> ActiveStorage::Blob
+
+
+
+
+end
+
+class ActiveStorage::Blob::ActiveRecord_Relation < ActiveRecord::Relation
+  include _ActiveRecord_Relation[ActiveStorage::Blob]
+  include Enumerable[ActiveStorage::Blob, self]
+
+
+end
+
+class ActiveStorage::Blob::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+end

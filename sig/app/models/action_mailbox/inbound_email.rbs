@@ -1,0 +1,27 @@
+extension ActionMailbox::InboundEmail (RbsRails)
+  extend _ActiveRecord_Relation_ClassMethods[ActionMailbox::InboundEmail, ActionMailbox::InboundEmail::ActiveRecord_Relation]
+
+  attr_accessor id (): Integer
+  attr_accessor status (): Integer
+  attr_accessor message_id (): String
+  attr_accessor message_checksum (): String
+  attr_accessor created_at (): Time
+  attr_accessor updated_at (): Time
+
+  def raw_email_attachment: () -> ActiveStorage::Attachment
+  def raw_email_blob: () -> ActiveStorage::Blob
+
+
+
+
+end
+
+class ActionMailbox::InboundEmail::ActiveRecord_Relation < ActiveRecord::Relation
+  include _ActiveRecord_Relation[ActionMailbox::InboundEmail]
+  include Enumerable[ActionMailbox::InboundEmail, self]
+
+
+end
+
+class ActionMailbox::InboundEmail::ActiveRecord_Associations_CollectionProxy < ActiveRecord::Associations::CollectionProxy
+end
