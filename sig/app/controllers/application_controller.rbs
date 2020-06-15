@@ -1,3 +1,6 @@
 class ApplicationController < ActionController::Base
+end
+
+extension ApplicationController (RbsRails)
   include _RbsRailsPathHelpers
 end
