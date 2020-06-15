@@ -13,6 +13,8 @@ services:
       WEBPACKER_DEV_SERVER_HOST: webpacker
     ports:
       - "3000:3000"
+    stdin_open: true
+    tty: true
     volumes:
       - home:/home/app
       - .:/app
