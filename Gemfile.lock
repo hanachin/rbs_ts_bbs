@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/pocke/rbs_rails.git
-  revision: c4929eca1c8bf8d3472954fe28cafc87ea5bf582
+  revision: a39df1fcc669bf72c67eda951a3cee45e586b922
   specs:
     rbs_rails (0.1.0)
       parser
@@ -110,6 +110,19 @@ GIT
       railties (>= 5.2)
       semantic_range (>= 2.3.0)
 
+GIT
+  remote: https://github.com/soutaro/steep.git
+  revision: c6f4f243d3aef979f895c0cea61b831eb4ef165a
+  specs:
+    steep (0.17.0)
+      activesupport (>= 5.1)
+      ast_utils (~> 0.3.0)
+      language_server-protocol (~> 3.14.0.2)
+      listen (~> 3.1)
+      parser (~> 2.7.0)
+      rainbow (>= 2.2.2, < 4.0)
+      rbs (~> 0.3.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -213,14 +226,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    steep (0.17.0)
-      activesupport (>= 5.1)
-      ast_utils (~> 0.3.0)
-      language_server-protocol (~> 3.14.0.2)
-      listen (~> 3.1)
-      parser (~> 2.7.0)
-      rainbow (>= 2.2.2, < 4.0)
-      rbs (~> 0.3.1)
     thor (1.0.1)
     tilt (2.0.10)
     turbolinks (5.2.1)
@@ -257,7 +262,7 @@ DEPENDENCIES
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)
-  steep
+  steep!
   turbolinks (~> 5)
   tzinfo-data
   web-console!
