@@ -1,2 +1,12 @@
 class BoardsController < ApplicationController
+  @board: Board
+  @boards: Board::ActiveRecord_Relation
+
+  def index: () -> void
+  def show: (Integer id) -> void
+  def new: () -> void
+  def edit: (Integer id) -> void
+  def create: (untyped board) -> void
+  def update: (Integer id, untyped board) -> void
+  def destroy: (Integer id) -> void
 end
