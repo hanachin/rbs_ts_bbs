@@ -112,16 +112,16 @@ GIT
 
 GIT
   remote: https://github.com/soutaro/steep.git
-  revision: c6f4f243d3aef979f895c0cea61b831eb4ef165a
+  revision: 16da96f069b7d0ba28d833301fc7510fcdfe2824
   specs:
-    steep (0.17.0)
+    steep (0.17.1)
       activesupport (>= 5.1)
       ast_utils (~> 0.3.0)
       language_server-protocol (~> 3.14.0.2)
       listen (~> 3.1)
       parser (~> 2.7.0)
       rainbow (>= 2.2.2, < 4.0)
-      rbs (~> 0.3.1)
+      rbs (>= 0.3.1, < 0.5.0)
 
 GEM
   remote: https://rubygems.org/
@@ -204,7 +204,7 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rbs (0.3.1)
+    rbs (0.4.0)
     regexp_parser (1.7.1)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
