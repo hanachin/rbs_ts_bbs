@@ -6,7 +6,7 @@ class BoardsController < ApplicationController
   def show: (Integer id) -> void
   def new: () -> void
   def edit: (Integer id) -> void
-  def create: (untyped board) -> void
-  def update: (Integer id, untyped board) -> void
+  def create: (String title) -> void
+  def update: (Integer id, String title) -> void
   def destroy: (Integer id) -> void
 end

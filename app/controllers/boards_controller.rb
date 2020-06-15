@@ -22,8 +22,9 @@ class BoardsController < ApplicationController
   end
 
   # POST /boards
-  def create(board)
-    @board = Board.new(board)
+  def create(title)
+    @board = Board.new
+    @board.title = title
 
     if @board.save
       redirect_to @board, notice: 'Board was successfully created.'
@@ -33,10 +34,11 @@ class BoardsController < ApplicationController
   end
 
   # PUT /boards/1
-  def update(id, board)
+  def update(id, title)
     @board = Board.find(id)
+    @board.title = title
 
-    if @board.update(board)
+    if @board.save
       redirect_to @board, notice: 'Board was successfully updated.'
     else
       render :edit
