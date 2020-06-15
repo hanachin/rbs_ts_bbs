@@ -1,3 +1,6 @@
+class ActionMailbox::InboundEmail
+end
+
 extension ActionMailbox::InboundEmail (RbsRails)
   extend _ActiveRecord_Relation_ClassMethods[ActionMailbox::InboundEmail, ActionMailbox::InboundEmail::ActiveRecord_Relation]
 

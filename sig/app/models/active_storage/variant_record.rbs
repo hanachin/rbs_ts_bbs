@@ -1,3 +1,6 @@
+class ActiveStorage::VariantRecord
+end
+
 extension ActiveStorage::VariantRecord (RbsRails)
   extend _ActiveRecord_Relation_ClassMethods[ActiveStorage::VariantRecord, ActiveStorage::VariantRecord::ActiveRecord_Relation]
 

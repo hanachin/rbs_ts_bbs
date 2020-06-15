@@ -1,3 +1,6 @@
+class ActiveStorage::Attachment
+end
+
 extension ActiveStorage::Attachment (RbsRails)
   extend _ActiveRecord_Relation_ClassMethods[ActiveStorage::Attachment, ActiveStorage::Attachment::ActiveRecord_Relation]
 

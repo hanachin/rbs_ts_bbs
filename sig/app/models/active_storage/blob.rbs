@@ -1,3 +1,6 @@
+class ActiveStorage::Blob
+end
+
 extension ActiveStorage::Blob (RbsRails)
   extend _ActiveRecord_Relation_ClassMethods[ActiveStorage::Blob, ActiveStorage::Blob::ActiveRecord_Relation]
 

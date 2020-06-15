@@ -1,3 +1,6 @@
+class ActionText::RichText
+end
+
 extension ActionText::RichText (RbsRails)
   extend _ActiveRecord_Relation_ClassMethods[ActionText::RichText, ActionText::RichText::ActiveRecord_Relation]
 
