@@ -264,6 +264,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 4.1)
   rails!
+  rbs
   rbs_rails!
   sass-rails (>= 6)
   selenium-webdriver
