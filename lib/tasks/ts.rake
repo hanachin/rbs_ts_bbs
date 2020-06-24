@@ -18,6 +18,81 @@ using Module.new {
         RBS::TypeName.new(name: last, namespace: namespace.parent)
       end
     end
+
+    def typescript_type_name(controller, action)
+      "#{controller.to_s.camelcase(:lower)}#{action.to_s.camelcase}Params"
+    end
+
+    def typescript_path_function(route_info, verb_type)
+      name = route_info.fetch(:name).camelize(:lower)
+      parts = route_info.fetch(:parts)
+      body = TypeScriptVisitor::INSTANCE.accept(route_info.fetch(:spec), '')
+      <<~TS
+      export const #{name} = {
+        path: (#{ parts.empty? ? '' : "{ #{parts.join(', ')} }: any" }) => #{ body },
+        names: [#{ parts.map { |n| n.to_json + " as const" }.join(",") }]
+      } as {
+        Methods?: {
+      #{verb_type.map { |v, t| "    #{v}: #{t}" }.join(",\n")}
+        }
+      }
+      TS
+    end
+
+    def routes_info
+      rs = Rails.application.routes.routes.filter_map { |r|
+        {
+          verb: r.verb,
+          name: r.name,
+          parts: r.parts,
+          reqs: r.requirements,
+          spec: r.path.spec
+        } if !r.internal && !r.app.engine?
+      }
+      rs.inject([]) do |new_rs, r|
+        prev_r = new_rs.last
+        if prev_r && r[:name].nil? && r.fetch(:spec).to_s != prev_r.fetch(:spec).to_s
+          # puts prev_r[:name]
+          # puts r.fetch(:spec).to_s
+          # puts prev_r.fetch(:spec).to_s
+          # raise
+          next new_rs
+        end
+        r[:name] = prev_r[:name] if prev_r && r[:name].nil?
+        next new_rs if r[:name].nil?
+        new_rs << r
+      end
+    end
+
+    def collect_action_interfaces
+      loader = RBS::EnvironmentLoader.new
+      dir = Pathname('sig')
+      loader.add(path: dir)
+      env = RBS::Environment.new
+      loader.load(env: env)
+      builder = RBS::DefinitionBuilder.new(env: env)
+      interfaces = {}
+      ApplicationController.subclasses.each do |subclass|
+        subclass_type_name = parse_type_name(subclass.inspect).absolute!
+        definition = builder.build_instance(subclass_type_name)
+        actions = subclass.public_instance_methods(false)
+        actions.each do |action|
+          method = definition.methods[action]
+          next unless method
+          raise 'Unsupported' unless method.method_types.size == 1
+          method_type = method.method_types.first
+          raise 'Unsupported' unless method_type.is_a?(RBS::MethodType)
+          interface = method_type.to_s
+          controller = subclass.to_s.sub(/Controller$/, '').underscore.to_s
+          interfaces[controller] ||= {}
+          interfaces[controller][action.to_s] = interface.empty? ? '{}' : interface
+        rescue
+          $stderr.puts $!.backtrace.join("\n")
+          $stderr.puts "#{subclass}##{action} not supported"
+        end
+      end
+      interfaces
+    end
   end
 
   refine(RBS::MethodType) do
@@ -247,32 +322,86 @@ using Module.new {
   end
 }
 
+class TypeScriptVisitor < ActionDispatch::Journey::Visitors::FunctionalVisitor
+  private
+
+  def binary(node, seed)
+    visit(node.right, visit(node.left, seed) + ' + ')
+  end
+
+  def nary(node, seed)
+    last_child = node.children.last
+    node.children.inject(seed) { |s, c|
+      string = visit(c, s)
+      string << '|' unless last_child == c
+      string
+    }
+  end
+
+  def terminal(node, seed)
+    seed + node.left.to_s.to_json
+  end
+
+  def visit_GROUP(node, seed)
+    # TODO: support nested level 2
+    # TODO: 
+    # return node.left.left.class
+    visit(node.left, seed.dup << '(() => { try { return ') << ' } catch { return "" } })()'
+  end
+
+  def visit_SYMBOL(n, seed);  variable(n, seed); end
+
+  def variable(node, seed)
+    if node.left.to_s[0] == '*'
+      seed + '(' + node.left.to_s[1..-1] + ' ?? "")'
+    else
+      v = node.left.to_s[1..-1]
+      seed + "(() => { if (#{v}) return #{v}; throw #{v.to_json} })()"
+    end
+  end
+
+  INSTANCE = new
+end
+
 namespace :ts do
   task generate_params_interface: :environment do
-    loader = RBS::EnvironmentLoader.new
-    dir = Pathname('sig')
-    loader.add(path: dir)
-    env = RBS::Environment.new
-    loader.load(env: env)
-    builder = RBS::DefinitionBuilder.new(env: env)
-
     Rails.application.eager_load!
 
-    ApplicationController.subclasses.each do |subclass|
-      subclass_type_name = parse_type_name(subclass.inspect).absolute!
-      definition = builder.build_instance(subclass_type_name)
-      actions = subclass.public_instance_methods(false)
-      actions.each do |action|
-        method = definition.methods[action]
-        raise 'Unsupported' unless method.method_types.size == 1
-        method_type = method.method_types.first
-        raise 'Unsupported' unless method_type.is_a?(RBS::MethodType)
-        interface = method_type.to_s
-        puts "type #{subclass.to_s.sub(/Controller$/, '')}#{action.to_s.camelcase}Params = #{interface.empty? ? '{}' : interface}"
-      rescue
-        puts $!.backtrace.join("\n")
-        puts "#{subclass}##{action} not supported"
+    interfaces = collect_action_interfaces
+    interfaces.each do |controller, actions|
+      actions.each do |action, interface|
+        puts "type #{typescript_type_name(controller, action)} = #{interface}"
       end
     end
+    routes_info.group_by { |r| r.fetch(:name) }.each do |name, routes|
+      route = routes.first
+      verb_type = routes.each_with_object({}) do |r, vt|
+        controller = r.dig(:reqs, :controller)
+        action = r.dig(:reqs, :action)
+        next unless interfaces.dig(controller, action)
+        vt[r.fetch(:verb)] = typescript_type_name(controller, action)
+      end
+      next if verb_type.empty?
+      puts typescript_path_function(route, verb_type)
+    end
+    puts <<~TS
+      type HttpMethods = 'GET' | 'POST' | 'PATCH' | 'DELETE'
+      type BaseResource = {
+        path?: (args: any) => string
+        names?: string[]
+        Methods?: { [method in HttpMethods]?: any }
+      }
+      function f<
+        Method extends keyof Exclude<Resource['Methods'], undefined>,
+        Resource extends BaseResource,
+        Params extends Exclude<Resource['Methods'], undefined>[Method]
+      >(method: Method, { path, names }: Resource, params: Params): string {
+        if (typeof names === 'undefined' || typeof path === 'undefined') {
+            throw 'error'
+        }
+        const paramsNotInNames = Object.keys(params).reduce<object>((ps, key) => names.indexOf(key) === - 1 ?  { ...ps, [key]: params[key] } : ps, {})
+        return method + path(params) + JSON.stringify(paramsNotInNames)
+      }
+    TS
   end
 end
