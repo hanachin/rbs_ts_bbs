@@ -12,11 +12,14 @@ async function f<
   Params extends Exclude<Resource['Params'], undefined>[Method],
   Return extends Exclude<Exclude<Resource['Return'], undefined>[Method], void>
 >(method: Method, { path, names }: Resource, params: Params): Promise<Return> {
+  const tag = document.querySelector<HTMLMetaElement>('meta[name=csrf-token]')
   const paramsNotInNames = Object.keys(params).reduce<object>((ps, key) => names.indexOf(key) === - 1 ? { ...ps, [key]: params[key] } : ps, {})
   const response = await fetch(path(params), {
     method,
+    body: JSON.stringify(paramsNotInNames),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': tag.content
     }
   })
   return response.json() as Promise<Return>
