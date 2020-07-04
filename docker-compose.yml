@@ -24,6 +24,7 @@ services:
     <<: *rails
     command: webpack-dev-server
     environment:
+      BUNDLE_PATH: /bundle
       WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
     ports:
       - "3035:3035"
