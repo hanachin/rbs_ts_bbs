@@ -155,7 +155,7 @@ namespace :ts do
     types = collect_controller_action_return_types
     types.each do |controller, actions|
       actions.each do |action, type|
-        puts "type #{type_script_return_type_name(controller, action)} = #{type}"
+        puts "type #{type_script_return_type_name(controller, action)} = Exclude<#{type}, void>"
       end
     end
   end

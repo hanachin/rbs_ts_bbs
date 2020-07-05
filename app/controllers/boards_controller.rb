@@ -27,9 +27,9 @@ class BoardsController < ApplicationController
     @board.title = title
 
     if @board.save
-      redirect_to @board, notice: 'Board was successfully created.'
+      render json: { url: boards_url, message: 'Board was successfully created.' }
     else
-      render :new
+      render json: @board.errors.full_messages.to_json
     end
   end
 
