@@ -11,7 +11,7 @@ export async function railsApi<
   Resource extends BaseResource,
   Params extends Exclude<Resource['Params'], undefined>[Method],
   Return extends Exclude<Exclude<Resource['Return'], undefined>[Method], void>
->(method: Method, { path, names }: Resource, params: Params): Promise<Return> {
+>(method: Method, { path, names }: Resource, params: Params): Promise<{ status: number, json: Return }> {
   const tag = document.querySelector<HTMLMetaElement>('meta[name=csrf-token]')
   const paramsNotInNames = Object.keys(params).reduce<object>((ps, key) => names.indexOf(key) === - 1 ? { ...ps, [key]: params[key] } : ps, {})
   const response = await fetch(path(params), {
@@ -23,5 +23,6 @@ export async function railsApi<
       'X-CSRF-Token': tag.content
     }
   })
-  return response.json() as Promise<Return>
+  const json = await response.json() as Return
+  return new Promise((resolve) => resolve({ status: response.status, json: json }))
 }
