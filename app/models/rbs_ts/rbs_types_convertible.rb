@@ -134,6 +134,10 @@ module RbsTs
           'number'
         when '::String'
           'string'
+        when '::Array'
+          raise 'Unsupported' unless args.one?
+
+          args[0].to_s + '[]'
         else
           raise 'Unsupported'
         end
