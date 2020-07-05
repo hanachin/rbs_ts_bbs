@@ -139,6 +139,9 @@ namespace :ts do
     Rails.application.eager_load!
   end
 
+  desc 'Generate TypeScript routes definitions'
+  task generate: [:generate_params_types, :generate_return_types, :generate_request_functions]
+
   task generate_params_types: :load_application do
     types = collect_controller_action_params_types
     types.each do |controller, actions|
