@@ -922,7 +922,7 @@
 
 "@rails/actiontext@https://gitpkg.now.sh/rails/rails/actiontext?master":
   version "6.1.0-alpha"
-  resolved "https://gitpkg.now.sh/rails/rails/actiontext?master#b7221a1fa73b80ac683e579cd161eb8cdb8cbcbe"
+  resolved "https://gitpkg.now.sh/rails/rails/actiontext?master#9876b2a56ecc286066a9ec551ef1ceaaf046aac1"
   dependencies:
     "@rails/activestorage" "^6.0.0-alpha"
 
