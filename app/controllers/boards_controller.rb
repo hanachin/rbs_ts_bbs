@@ -39,9 +39,9 @@ class BoardsController < ApplicationController
     @board.title = title
 
     if @board.save
-      redirect_to @board, notice: 'Board was successfully updated.'
+      render json: { url: board_url(@board), message: 'Board was successfully updated.' }
     else
-      render :edit
+      render json: @board.errors.full_messages.to_json
     end
   end
 
