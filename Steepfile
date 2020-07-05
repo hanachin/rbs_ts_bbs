@@ -2,6 +2,7 @@ target :app do
   signature "sig"
 
   check "app"
+  ignore "app/models/rbs_ts"
   typing_options :strict
 
   # check "Gemfile"
