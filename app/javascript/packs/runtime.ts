@@ -6,7 +6,7 @@ type BaseResource = {
   Params?: { [method in HttpMethods]?: any }
   Return?: { [method in HttpMethods]?: any }
 }
-async function f<
+export async function railsApi<
   Method extends Exclude<Resource['Methods'], undefined>,
   Resource extends BaseResource,
   Params extends Exclude<Resource['Params'], undefined>[Method],
@@ -18,6 +18,7 @@ async function f<
     method,
     body: JSON.stringify(paramsNotInNames),
     headers: {
+      'Accept': 'application/json',
       'Content-Type': 'application/json',
       'X-CSRF-Token': tag.content
     }
