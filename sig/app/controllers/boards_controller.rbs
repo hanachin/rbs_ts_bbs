@@ -2,11 +2,11 @@ class BoardsController < ApplicationController
   @board: Board
   @boards: Board::ActiveRecord_Relation
 
-  def index: () -> void
+  def index: () -> (Array[{ id: Integer, title: String }] | void)
   def show: (Integer id) -> void
   def new: () -> void
   def edit: (Integer id) -> void
   def create: (String title) -> ({ url: String, message: String } | Array[String] | void)
   def update: (Integer id, String title) -> ({ url: String, message: String } | Array[String] | void)
-  def destroy: (Integer id) -> void
+  def destroy: (Integer id) -> ({ url: String, message: String } | void)
 end

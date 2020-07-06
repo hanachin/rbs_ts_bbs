@@ -50,6 +50,6 @@ class BoardsController < ApplicationController
     @board = Board.find(id)
     @board.destroy
 
-    redirect_to boards_url, notice: 'Board was successfully destroyed.'
+    render json: { url: boards_url, message: 'Board was successfully destroyed.' }
   end
 end
