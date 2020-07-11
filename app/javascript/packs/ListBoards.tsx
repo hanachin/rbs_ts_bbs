@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { railsApi } from "./runtime"
-import { board, boards } from "./routes"
+import { railsApi } from "./rbs_ts_runtime"
+import { board, boards } from "./rbs_ts_routes"
 
 type Board = { id: number; title: string }
 const ListBoards = ({ boards, notice }: { boards: Board[], notice: string }) => {

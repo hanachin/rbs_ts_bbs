@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BoardForm } from './BoardForm'
-import { boards, board } from './routes'
-import { railsApi } from './runtime'
+import { boards, board } from './rbs_ts_routes'
+import { railsApi } from './rbs_ts_runtime'
 
 const EditBoard = ({ id, title }: { id: number, title: string }) => {
   const handleSubmit = ({ title: newTitle }: { title: string }) => {

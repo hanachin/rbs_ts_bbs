@@ -1,5 +1,6 @@
-require_relative '../../app/models/rbs_ts/rbs_types_convertible'
-require_relative '../../app/models/rbs_ts/type_script_visitor'
+require 'stringio'
+require_relative './rbs_types_convertible'
+require_relative './type_script_visitor'
 
 using RbsTs::RbsTypesConvertible
 
@@ -134,47 +135,64 @@ using Module.new {
   end
 }
 
-namespace :ts do
-  task load_application: :environment do
+using Module.new {
+  refine(Object) do
+    def generate_params_types
+      output = StringIO.new
+      types = collect_controller_action_params_types
+      types.each do |controller, actions|
+        actions.each do |action, type|
+          output.puts "type #{type_script_params_type_name(controller, action)} = #{type}"
+        end
+      end
+      output.string
+    end
+  
+    def generate_return_types
+      output = StringIO.new
+      types = collect_controller_action_return_types
+      types.each do |controller, actions|
+        actions.each do |action, type|
+          output.puts "type #{type_script_return_type_name(controller, action)} = Exclude<#{type}, void>"
+        end
+      end
+      output.string
+    end
+  
+    def generate_request_functions
+      output = StringIO.new
+      type = collect_controller_action_params_types
+      routes_info.group_by { |r| r.fetch(:name) }.each do |name, routes|
+        route = routes.first
+        verb_type = routes.each_with_object({}) do |r, vt|
+          controller = r.dig(:reqs, :controller)
+          action = r.dig(:reqs, :action)
+          next unless type.dig(controller, action)
+          vt[r.fetch(:verb)] = {
+            params_type: type_script_params_type_name(controller, action),
+            return_type: type_script_return_type_name(controller, action)
+          }
+        end
+        next if verb_type.empty?
+        output.puts typescript_path_function(route, verb_type)
+      end
+      output.string
+    end
+  end
+}
+
+class RbsTsGenerator < Rails::Generators::Base
+  source_root File.expand_path('templates', __dir__)
+
+  def copy_rbs_ts_runtime_ts
+    copy_file 'rbs_ts_runtime.ts', 'app/javascript/packs/rbs_ts_runtime.ts'
+  end
+
+  def create_rbs_ts_routes_ts
     Rails.application.eager_load!
-  end
-
-  desc 'Generate TypeScript routes definitions'
-  task generate: [:generate_params_types, :generate_return_types, :generate_request_functions]
-
-  task generate_params_types: :load_application do
-    types = collect_controller_action_params_types
-    types.each do |controller, actions|
-      actions.each do |action, type|
-        puts "type #{type_script_params_type_name(controller, action)} = #{type}"
-      end
-    end
-  end
-
-  task generate_return_types: :load_application do
-    types = collect_controller_action_return_types
-    types.each do |controller, actions|
-      actions.each do |action, type|
-        puts "type #{type_script_return_type_name(controller, action)} = Exclude<#{type}, void>"
-      end
-    end
-  end
-
-  task generate_request_functions: :load_application do
-    type = collect_controller_action_params_types
-    routes_info.group_by { |r| r.fetch(:name) }.each do |name, routes|
-      route = routes.first
-      verb_type = routes.each_with_object({}) do |r, vt|
-        controller = r.dig(:reqs, :controller)
-        action = r.dig(:reqs, :action)
-        next unless type.dig(controller, action)
-        vt[r.fetch(:verb)] = {
-          params_type: type_script_params_type_name(controller, action),
-          return_type: type_script_return_type_name(controller, action)
-        }
-      end
-      next if verb_type.empty?
-      puts typescript_path_function(route, verb_type)
-    end
+    params_types = generate_params_types
+    return_types = generate_return_types
+    request_functions = generate_request_functions
+    create_file 'app/javascript/packs/rbs_ts_routes.ts', [params_types, return_types, request_functions].join("\n")
   end
 end
