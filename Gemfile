@@ -59,3 +59,4 @@ gem 'pry-rails', group: [:development, :test]
 gem 'rbs', group: [:development, :test]
 gem 'rbs_rails', group: [:development, :test], github: 'pocke/rbs_rails'
 gem 'steep', group: [:development, :test], github: 'soutaro/steep'
+gem 'rbs_ts_generator', github: 'hanachin/rbs_ts_generator', group: :development
