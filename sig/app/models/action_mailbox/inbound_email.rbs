@@ -1,15 +1,72 @@
-class ActionMailbox::InboundEmail
-end
-
-extension ActionMailbox::InboundEmail (RbsRails)
+class ActionMailbox::InboundEmail < ActiveRecord::Base
   extend _ActiveRecord_Relation_ClassMethods[ActionMailbox::InboundEmail, ActionMailbox::InboundEmail::ActiveRecord_Relation]
 
   attr_accessor id (): Integer
+  def id_changed?: () -> bool
+  def id_change: () -> [Integer?, Integer?]
+  def id_will_change!: () -> void
+  def id_was: () -> Integer?
+  def id_previously_changed?: () -> bool
+  def id_previous_change: () -> Array[Integer?]?
+  def id_previously_was: () -> Integer?
+  def restore_id!: () -> void
+  def clear_id_change: () -> void
+
   attr_accessor status (): Integer
+  def status_changed?: () -> bool
+  def status_change: () -> [Integer?, Integer?]
+  def status_will_change!: () -> void
+  def status_was: () -> Integer?
+  def status_previously_changed?: () -> bool
+  def status_previous_change: () -> Array[Integer?]?
+  def status_previously_was: () -> Integer?
+  def restore_status!: () -> void
+  def clear_status_change: () -> void
+
   attr_accessor message_id (): String
+  def message_id_changed?: () -> bool
+  def message_id_change: () -> [String?, String?]
+  def message_id_will_change!: () -> void
+  def message_id_was: () -> String?
+  def message_id_previously_changed?: () -> bool
+  def message_id_previous_change: () -> Array[String?]?
+  def message_id_previously_was: () -> String?
+  def restore_message_id!: () -> void
+  def clear_message_id_change: () -> void
+
   attr_accessor message_checksum (): String
+  def message_checksum_changed?: () -> bool
+  def message_checksum_change: () -> [String?, String?]
+  def message_checksum_will_change!: () -> void
+  def message_checksum_was: () -> String?
+  def message_checksum_previously_changed?: () -> bool
+  def message_checksum_previous_change: () -> Array[String?]?
+  def message_checksum_previously_was: () -> String?
+  def restore_message_checksum!: () -> void
+  def clear_message_checksum_change: () -> void
+
   attr_accessor created_at (): Time
+  def created_at_changed?: () -> bool
+  def created_at_change: () -> [Time?, Time?]
+  def created_at_will_change!: () -> void
+  def created_at_was: () -> Time?
+  def created_at_previously_changed?: () -> bool
+  def created_at_previous_change: () -> Array[Time?]?
+  def created_at_previously_was: () -> Time?
+  def restore_created_at!: () -> void
+  def clear_created_at_change: () -> void
+
   attr_accessor updated_at (): Time
+  def updated_at_changed?: () -> bool
+  def updated_at_change: () -> [Time?, Time?]
+  def updated_at_will_change!: () -> void
+  def updated_at_was: () -> Time?
+  def updated_at_previously_changed?: () -> bool
+  def updated_at_previous_change: () -> Array[Time?]?
+  def updated_at_previously_was: () -> Time?
+  def restore_updated_at!: () -> void
+  def clear_updated_at_change: () -> void
+
 
   def raw_email_attachment: () -> ActiveStorage::Attachment
   def raw_email_blob: () -> ActiveStorage::Blob

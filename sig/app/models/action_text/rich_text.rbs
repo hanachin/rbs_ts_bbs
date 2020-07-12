@@ -1,16 +1,83 @@
-class ActionText::RichText
-end
-
-extension ActionText::RichText (RbsRails)
+class ActionText::RichText < ActiveRecord::Base
   extend _ActiveRecord_Relation_ClassMethods[ActionText::RichText, ActionText::RichText::ActiveRecord_Relation]
 
   attr_accessor id (): Integer
+  def id_changed?: () -> bool
+  def id_change: () -> [Integer?, Integer?]
+  def id_will_change!: () -> void
+  def id_was: () -> Integer?
+  def id_previously_changed?: () -> bool
+  def id_previous_change: () -> Array[Integer?]?
+  def id_previously_was: () -> Integer?
+  def restore_id!: () -> void
+  def clear_id_change: () -> void
+
   attr_accessor name (): String
+  def name_changed?: () -> bool
+  def name_change: () -> [String?, String?]
+  def name_will_change!: () -> void
+  def name_was: () -> String?
+  def name_previously_changed?: () -> bool
+  def name_previous_change: () -> Array[String?]?
+  def name_previously_was: () -> String?
+  def restore_name!: () -> void
+  def clear_name_change: () -> void
+
   attr_accessor body (): String
+  def body_changed?: () -> bool
+  def body_change: () -> [String?, String?]
+  def body_will_change!: () -> void
+  def body_was: () -> String?
+  def body_previously_changed?: () -> bool
+  def body_previous_change: () -> Array[String?]?
+  def body_previously_was: () -> String?
+  def restore_body!: () -> void
+  def clear_body_change: () -> void
+
   attr_accessor record_type (): String
+  def record_type_changed?: () -> bool
+  def record_type_change: () -> [String?, String?]
+  def record_type_will_change!: () -> void
+  def record_type_was: () -> String?
+  def record_type_previously_changed?: () -> bool
+  def record_type_previous_change: () -> Array[String?]?
+  def record_type_previously_was: () -> String?
+  def restore_record_type!: () -> void
+  def clear_record_type_change: () -> void
+
   attr_accessor record_id (): Integer
+  def record_id_changed?: () -> bool
+  def record_id_change: () -> [Integer?, Integer?]
+  def record_id_will_change!: () -> void
+  def record_id_was: () -> Integer?
+  def record_id_previously_changed?: () -> bool
+  def record_id_previous_change: () -> Array[Integer?]?
+  def record_id_previously_was: () -> Integer?
+  def restore_record_id!: () -> void
+  def clear_record_id_change: () -> void
+
   attr_accessor created_at (): Time
+  def created_at_changed?: () -> bool
+  def created_at_change: () -> [Time?, Time?]
+  def created_at_will_change!: () -> void
+  def created_at_was: () -> Time?
+  def created_at_previously_changed?: () -> bool
+  def created_at_previous_change: () -> Array[Time?]?
+  def created_at_previously_was: () -> Time?
+  def restore_created_at!: () -> void
+  def clear_created_at_change: () -> void
+
   attr_accessor updated_at (): Time
+  def updated_at_changed?: () -> bool
+  def updated_at_change: () -> [Time?, Time?]
+  def updated_at_will_change!: () -> void
+  def updated_at_was: () -> Time?
+  def updated_at_previously_changed?: () -> bool
+  def updated_at_previous_change: () -> Array[Time?]?
+  def updated_at_previously_was: () -> Time?
+  def restore_updated_at!: () -> void
+  def clear_updated_at_change: () -> void
+
   def embeds_attachments: () -> ActiveStorage::Attachment::ActiveRecord_Associations_CollectionProxy
   def embeds_blobs: () -> ActiveStorage::Blob::ActiveRecord_Associations_CollectionProxy
 
