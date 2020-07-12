@@ -6,7 +6,7 @@ import { railsApi } from './rbs_ts_runtime'
 
 const NewBoard = () => {
   const handleSubmit = (values) => {
-    const result = railsApi('POST', boards, values)
+    const result = railsApi('POST' as const, boards, values)
     return result.then(({ json }) => {
       if (json instanceof Array) {
         return Promise.reject(json)

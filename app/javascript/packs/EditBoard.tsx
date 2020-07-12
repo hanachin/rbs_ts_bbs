@@ -6,7 +6,7 @@ import { railsApi } from './rbs_ts_runtime'
 
 const EditBoard = ({ id, title }: { id: number, title: string }) => {
   const handleSubmit = ({ title: newTitle }: { title: string }) => {
-    const result = railsApi('PATCH', board, { id: id, title: newTitle})
+    const result = railsApi('PATCH' as const, board, { id: id, title: newTitle})
     return result.then(({ json }) => {
       if (json instanceof Array) {
         return Promise.reject(json)
