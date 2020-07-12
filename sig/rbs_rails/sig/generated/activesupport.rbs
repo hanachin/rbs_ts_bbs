@@ -8401,28 +8401,28 @@ module ActiveSupport
   extend LazyLoadHooks
 end
 
-module ActiveSupport
-  class Logger < ::Logger
-    include LoggerSilence
+# module ActiveSupport
+#   class Logger < ::Logger
+#     include LoggerSilence
 
-    # Returns true if the logger destination matches one of the sources
-    #
-    #   logger = Logger.new(STDOUT)
-    #   ActiveSupport::Logger.logger_outputs_to?(logger, STDOUT)
-    #   # => true
-    def self.logger_outputs_to?: (untyped logger, *untyped sources) -> untyped
+#     # Returns true if the logger destination matches one of the sources
+#     #
+#     #   logger = Logger.new(STDOUT)
+#     #   ActiveSupport::Logger.logger_outputs_to?(logger, STDOUT)
+#     #   # => true
+#     def self.logger_outputs_to?: (untyped logger, *untyped sources) -> untyped
 
-    def self.broadcast: (untyped logger) -> untyped
+#     def self.broadcast: (untyped logger) -> untyped
 
-    def initialize: (*untyped args, **untyped kwargs) -> untyped
+#     def initialize: (*untyped args, **untyped kwargs) -> untyped
 
-    # Simple formatter which only displays the message.
-    class SimpleFormatter < ::Logger::Formatter
-      # This method is invoked when a log event occurs
-      def call: (untyped severity, untyped timestamp, untyped progname, untyped msg) -> ::String
-    end
-  end
-end
+#     # Simple formatter which only displays the message.
+#     class SimpleFormatter < ::Logger::Formatter
+#       # This method is invoked when a log event occurs
+#       def call: (untyped severity, untyped timestamp, untyped progname, untyped msg) -> ::String
+#     end
+#   end
+# end
 
 module LoggerSilence
   extend ActiveSupport::Concern
@@ -8593,7 +8593,7 @@ module ActiveSupport
       def teardown: () -> untyped
 
       class MockLogger
-        include ::Logger::Severity
+        # include ::Logger::Severity
 
         attr_reader flush_count: untyped
 
@@ -9216,7 +9216,7 @@ module ActiveSupport
     #
     # This class is thread safe. All methods are reentrant.
     class Fanout
-      include Mutex_m
+      # include Mutex_m
 
       def initialize: () -> untyped
 
