@@ -1,0 +1,5 @@
+module DRb
+end
+
+module DRb::DRbUndumped
+end
