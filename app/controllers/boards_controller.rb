@@ -27,7 +27,7 @@ class BoardsController < ApplicationController
     @board.title = title
 
     if @board.save
-      render json: { url: boards_url, message: 'Board was successfully created.' }
+      render json: { id: @board.id, message: 'Board was successfully created.' }
     else
       render json: @board.errors.full_messages.to_json
     end
@@ -39,7 +39,7 @@ class BoardsController < ApplicationController
     @board.title = title
 
     if @board.save
-      render json: { url: board_url(@board), message: 'Board was successfully updated.' }
+      render json: { id: @board.id, message: 'Board was successfully updated.' }
     else
       render json: @board.errors.full_messages.to_json
     end
@@ -50,6 +50,6 @@ class BoardsController < ApplicationController
     @board = Board.find(id)
     @board.destroy
 
-    render json: { url: boards_url, message: 'Board was successfully destroyed.' }
+    render json: { message: 'Board was successfully destroyed.' }
   end
 end

@@ -35,13 +35,13 @@ module ActionController
   class Metal < ::AbstractController::Base
   end
 
-  class Base < Metal
+  class Base < ::ActionController::Metal
     include _ActionController_API_and_Base
     extend _ActionController_API_and_Base_singletion
     extend ::ActionView::Layouts::ClassMethods
   end
 
-  class API < Metal
+  class API < ::ActionController::Metal
     include _ActionController_API_and_Base
     extend _ActionController_API_and_Base_singletion
   end

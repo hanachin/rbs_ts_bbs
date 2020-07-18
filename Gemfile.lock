@@ -1,20 +1,6 @@
 GIT
-  remote: https://github.com/hanachin/rbs_ts_generator.git
-  revision: ffc89b300d0a4172ae5d90ff8f328f1fb76c9ec7
-  specs:
-    rbs_ts_generator (0.1.0)
-      rails (>= 6.0.3.1, <= 6.1.0.alpha)
-
-GIT
-  remote: https://github.com/pocke/rbs_rails.git
-  revision: ad6f642ddf257d5f40ecfe3925ba0eab6888dc6a
-  specs:
-    rbs_rails (0.2.0)
-      parser
-
-GIT
   remote: https://github.com/rails/rails.git
-  revision: 3bd14f4653a33469e39a4508f3330fed436e4625
+  revision: 7f963b2c95037bb84d7f186b25a8336dc8641376
   branch: master
   specs:
     actioncable (6.1.0.alpha)
@@ -99,9 +85,9 @@ GIT
 
 GIT
   remote: https://github.com/rails/web-console.git
-  revision: d5f289dfef47c5c61fab88ec10e0106911ef3ccf
+  revision: e1ed9e66a2cea5397dac6a6f93db71c075781166
   specs:
-    web-console (4.0.2)
+    web-console (4.0.4)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
@@ -109,26 +95,13 @@ GIT
 
 GIT
   remote: https://github.com/rails/webpacker.git
-  revision: 6779013ee445d162f55f11bfa10ac104178c8f42
+  revision: bf278f9787704ed0f78038ad7d36c008abc2edfd
   specs:
     webpacker (5.1.1)
       activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
       railties (>= 5.2)
       semantic_range (>= 2.3.0)
-
-GIT
-  remote: https://github.com/soutaro/steep.git
-  revision: 9042e1fe067d2177862726be3320909e971fa2b8
-  specs:
-    steep (0.19.0)
-      activesupport (>= 5.1)
-      ast_utils (~> 0.3.0)
-      language_server-protocol (~> 3.14.0.2)
-      listen (~> 3.1)
-      parser (~> 2.7.0)
-      rainbow (>= 2.2.2, < 4.0)
-      rbs (>= 0.6.0, < 0.7.0)
 
 GEM
   remote: https://rubygems.org/
@@ -145,7 +118,7 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.1.3)
-    capybara (3.32.2)
+    capybara (3.33.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
@@ -169,7 +142,7 @@ GEM
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    loofah (2.5.0)
+    loofah (2.6.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -183,7 +156,7 @@ GEM
     minitest (5.14.1)
     msgpack (1.3.3)
     nio4r (2.5.2)
-    nokogiri (1.10.9)
+    nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     parser (2.7.1.4)
       ast (~> 2.4.1)
@@ -191,12 +164,15 @@ GEM
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    pry-byebug (3.9.0)
+      byebug (~> 11.0)
+      pry (~> 0.13.0)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.5)
     puma (4.3.5)
       nio4r (~> 2.0)
-    rack (2.2.2)
+    rack (2.2.3)
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -212,6 +188,11 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rbs (0.6.0)
+    rbs_rails (0.2.0)
+      parser
+    rbs_ts_generator (0.1.0)
+      rails (>= 6.0.3.1, <= 6.1.0.alpha)
+      rbs (>= 0.6.0, < 0.7.0)
     regexp_parser (1.7.1)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
@@ -239,6 +220,14 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    steep (0.20.0)
+      activesupport (>= 5.1)
+      ast_utils (~> 0.3.0)
+      language_server-protocol (~> 3.14.0.2)
+      listen (~> 3.1)
+      parser (~> 2.7.0)
+      rainbow (>= 2.2.2, < 4.0)
+      rbs (>= 0.6.0, < 0.7.0)
     thor (1.0.1)
     tilt (2.0.10)
     turbolinks (5.2.1)
@@ -250,12 +239,12 @@ GEM
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (>= 3.0, < 4.0)
-    websocket-driver (0.7.2)
+    websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.3.0)
+    zeitwerk (2.4.0)
 
 PLATFORMS
   ruby
@@ -268,17 +257,18 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   listen (~> 3.2)
   pg (>= 0.18, < 2.0)
+  pry-byebug
   pry-rails
   puma (~> 4.1)
   rails!
   rbs
-  rbs_rails!
-  rbs_ts_generator!
+  rbs_rails
+  rbs_ts_generator
   sass-rails (>= 6)
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)
-  steep!
+  steep
   turbolinks (~> 5)
   tzinfo-data
   web-console!

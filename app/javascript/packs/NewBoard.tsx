@@ -11,7 +11,7 @@ const NewBoard = () => {
       if (json instanceof Array) {
         return Promise.reject(json)
       } else {
-        window.location.href = json.url
+        window.location.href = boards.path({})
         return Promise.resolve()
       }
     })

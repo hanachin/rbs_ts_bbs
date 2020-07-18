@@ -1,4 +1,8 @@
-class BoardsController < ApplicationController
+class ApplicationController < ::ActionController::Base
+  # include _RbsRailsPathHelpers
+end
+
+class BoardsController < ::ApplicationController
   @board: Board
   @boards: Board::ActiveRecord_Relation
 
@@ -6,7 +10,7 @@ class BoardsController < ApplicationController
   def show: (Integer id) -> void
   def new: () -> void
   def edit: (Integer id) -> void
-  def create: (String title) -> ({ url: String, message: String } | Array[String] | void)
-  def update: (Integer id, String title) -> ({ url: String, message: String } | Array[String] | void)
-  def destroy: (Integer id) -> ({ url: String, message: String } | void)
+  def create: (String title) -> ({ id: Integer, message: String } | Array[String] | void)
+  def update: (Integer id, String title) -> ({ id: Integer, message: String } | Array[String] | void)
+  def destroy: (Integer id) -> ({ message: String } | void)
 end

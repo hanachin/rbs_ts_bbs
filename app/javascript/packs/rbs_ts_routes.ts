@@ -1,18 +1,18 @@
-type BoardsShowParams = { id: number }
 type BoardsNewParams = {}
-type BoardsUpdateParams = { id: number; title: string }
 type BoardsEditParams = { id: number }
+type BoardsUpdateParams = { id: number; title: string }
 type BoardsDestroyParams = { id: number }
+type BoardsShowParams = { id: number }
 type BoardsIndexParams = {}
 type BoardsCreateParams = { title: string }
 
-type BoardsShowReturn = Exclude<void, void>
 type BoardsNewReturn = Exclude<void, void>
-type BoardsUpdateReturn = Exclude<{ url: string; message: string } | string[] | void, void>
 type BoardsEditReturn = Exclude<void, void>
-type BoardsDestroyReturn = Exclude<{ url: string; message: string } | void, void>
+type BoardsUpdateReturn = Exclude<{ id: number; message: string } | string[] | void, void>
+type BoardsDestroyReturn = Exclude<{ message: string } | void, void>
+type BoardsShowReturn = Exclude<void, void>
 type BoardsIndexReturn = Exclude<{ id: number; title: string }[] | void, void>
-type BoardsCreateReturn = Exclude<{ url: string; message: string } | string[] | void, void>
+type BoardsCreateReturn = Exclude<{ id: number; message: string } | string[] | void, void>
 
 export const boards = {
   path: ({ format }: any) => "/" + "boards" + (() => { try { return "." + (() => { if (format) return format; throw "format" })() } catch { return "" } })(),

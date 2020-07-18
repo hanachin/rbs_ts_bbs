@@ -11,7 +11,7 @@ const EditBoard = ({ id, title }: { id: number, title: string }) => {
       if (json instanceof Array) {
         return Promise.reject(json)
       } else {
-        window.location.href = json.url
+        window.location.href = board.path({ id: json.id })
         return Promise.resolve()
       }
     })

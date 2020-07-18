@@ -4,5 +4,7 @@ module ActionMailer
     # extend ActionView::Layouts::ClassMethods
 
     def self.default: (?Hash[Symbol, untyped] value) -> Hash[Symbol, untyped]
+
+    def self.layout: (String) -> void
   end
 end
